@@ -36,4 +36,10 @@ public final class MainActivity extends Activity {
         Intent intent = new Intent(this, ViewActivity.class);
         startActivity(intent);
     }
+
+    public void sensorsViewClicked(View view) {
+        Log.d(TAG, "sensorsViewClicked");
+        Intent intent = new Intent(this, SensorsActivity.class);
+        startActivity(intent);
+    }
 }
