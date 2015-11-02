@@ -21,8 +21,8 @@ public final class ViewActivity extends Activity {
         AngleView angle3 = (AngleView)findViewById(R.id.angle_3);
 
         Random random = new Random();
-        angle1.setAngle(random.nextFloat());
-        angle2.setAngle(random.nextFloat());
-        angle3.setAngle(random.nextFloat());
+        angle1.setAngle((float)(random.nextFloat() * Math.PI * 2));
+        angle2.setAngle((float)(random.nextFloat() * Math.PI * 2));
+        angle3.setAngle((float)(random.nextFloat() * Math.PI * 2));
     }
 }

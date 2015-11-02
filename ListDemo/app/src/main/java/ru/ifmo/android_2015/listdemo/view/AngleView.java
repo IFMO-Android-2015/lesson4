@@ -12,7 +12,7 @@ import java.util.Random;
  * Created by alexey.nikitin on 02.11.15.
  */
 public class AngleView extends View {
-    protected float angle;
+    private float angle;
 
     private final Paint paintAngle = new Paint();
     private final Paint paintRect = new Paint();
@@ -25,6 +25,7 @@ public class AngleView extends View {
 
         paintRect.setColor(new Random().nextInt());
         paintRect.setStrokeWidth(10);
+        paintRect.setStyle(Paint.Style.STROKE);
     }
 
     public void setAngle(float angle) {
