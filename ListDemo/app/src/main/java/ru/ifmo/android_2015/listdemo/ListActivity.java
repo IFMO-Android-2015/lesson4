@@ -1,10 +1,12 @@
 package ru.ifmo.android_2015.listdemo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,6 +20,8 @@ import java.util.List;
 public final class ListActivity extends Activity {
     private static final String TAG = ListActivity.class.getSimpleName();
     private final List<String> items = new ArrayList<>();
+    private SimpleRecyclerAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +35,36 @@ public final class ListActivity extends Activity {
             items.add("Item #" + i);
         }
 
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.list);
+        recyclerView = (RecyclerView)findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new SimpleRecyclerAdapter(items));
+        adapter = new SimpleRecyclerAdapter(this, items);
+        recyclerView.setAdapter(adapter);
+    }
+
+    public void addClicked(View view) {
+        items.add(0, "Item #" + adapter.getItemCount());
+        adapter.notifyDataSetChanged();
     }
 
     private class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAdapter.ViewHolder> {
         private final List<String> items;
+        private final LayoutInflater li;
 
-        private SimpleRecyclerAdapter(List<String> items) {
+        private SimpleRecyclerAdapter(Context context, List<String> items) {
+            li = LayoutInflater.from(context);
             this.items = items;
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            TextView itemView = new TextView(ListActivity.this);
-            itemView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80));
-
-            return new ViewHolder(itemView);
+            return new ViewHolder(li.inflate(R.layout.item_list, parent, false));
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(items.get(position));
+            String str = items.get(position);
+            holder.firstLine.setText(str + " first");
+            holder.secondLine.setText(str + " second");
         }
 
         @Override
@@ -62,12 +73,14 @@ public final class ListActivity extends Activity {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView text;
+            final TextView firstLine;
+            final TextView secondLine;
 
             public ViewHolder(View itemView) {
                 super(itemView);
 
-                text = (TextView)itemView;
+                firstLine = (TextView)itemView.findViewById(R.id.fist_line);
+                secondLine = (TextView)itemView.findViewById(R.id.second_line);
             }
         }
     }
