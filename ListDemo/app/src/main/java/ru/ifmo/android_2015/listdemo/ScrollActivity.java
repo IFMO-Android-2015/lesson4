@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 /**
@@ -27,23 +26,13 @@ public final class ScrollActivity extends Activity {
         for (int i = 0; i < 10000; i++) {
             addTextView(i);
         }
-
-        group.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                group.getViewTreeObserver().removeOnPreDrawListener(this);
-                Log.d(TAG, "onPreDraw");
-                return true;
-            }
-        });
     }
 
     private void addTextView(int i) {
         TextView tv = new TextView(this);
         tv.setText("Item #" + i);
         group.addView(tv, i, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                80));
+                ViewGroup.LayoutParams.MATCH_PARENT, 80));
     }
 
     public void addClicked(View view) {

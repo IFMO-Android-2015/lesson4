@@ -30,4 +30,10 @@ public final class MainActivity extends Activity {
         Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
     }
+
+    public void customViewClicked(View view) {
+        Log.d(TAG, "customViewClicked");
+        Intent intent = new Intent(this, ViewActivity.class);
+        startActivity(intent);
+    }
 }
