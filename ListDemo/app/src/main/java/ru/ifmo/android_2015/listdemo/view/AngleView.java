@@ -14,14 +14,14 @@ import java.util.Random;
 public class AngleView extends View {
     protected float angle;
 
-    private final Paint paintAgnle = new Paint();
+    private final Paint paintAngle = new Paint();
     private final Paint paintRect = new Paint();
 
     public AngleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        paintAgnle.setColor(new Random().nextInt());
-        paintAgnle.setStrokeWidth(10);
+        paintAngle.setColor(new Random().nextInt());
+        paintAngle.setStrokeWidth(10);
 
         paintRect.setColor(new Random().nextInt());
         paintRect.setStrokeWidth(10);
@@ -45,7 +45,7 @@ public class AngleView extends View {
         int centerX = width / 2;
         int centerY = height / 2;
         canvas.drawLine(centerX, centerY, (float)(centerX + minSize * Math.cos(angle)),
-                        (float)(centerY + minSize * Math.sin(angle)), paintAgnle);
+                        (float)(centerY + minSize * Math.sin(angle)), paintAngle);
 
         angle += 0.1;
         invalidate();
