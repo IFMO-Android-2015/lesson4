@@ -53,6 +53,7 @@ public final class ListActivity extends Activity {
         private SimpleRecyclerAdapter(Context context, List<String> items) {
             li = LayoutInflater.from(context);
             this.items = items;
+            setHasStableIds(true);
         }
 
         @Override
@@ -65,6 +66,11 @@ public final class ListActivity extends Activity {
             String str = items.get(position);
             holder.firstLine.setText(str + " first");
             holder.secondLine.setText(str + " second");
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return items.get(position).hashCode();
         }
 
         @Override
